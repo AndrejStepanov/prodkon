@@ -115,7 +115,7 @@
 					vm.user.data.role = todo.role.value
 				}
 				vm.sendingData=true
-				sendRequest({href:"/data_command", type:vm.saveFormType, data:{ todo, }, default: getErrDesc('requestFaild'), mustHandler:() => {vm.sendingData=false},handler:()=>showMsg({...getMsgDesc('saveDoing')}),  })
+				sendRequest({href:"/data_command", type:vm.saveFormType, data:{ todo, }, default: getErrDesc('requestFaild'), mustHandler:() => {vm.sendingData=false},handler:()=>{showMsg({...getMsgDesc('saveDoing')}); top.location.reload(); },  })
 			},
 			getData(){
 				let vm=this
@@ -142,15 +142,16 @@
 			getInputsForPrj(prj){
 				let vm=this
 				return [	
+					{id:1, code:'id', 			name:'id', 					value:nvl(prj.id,''),				type:'HIDDEN', 			nullable:nvl(prj.id)==0, 	editable:nvl(prj.id)!=0, column_size:30, 	sort_seq:1, 	},
 					{id:1, code:'name', 		name:'Проект', 				value:nvl(prj.name,''),				type:'INPUT', 			nullable:nvl(prj.id)==0, 	editable:nvl(prj.id)!=0, column_size:30, 	sort_seq:1, 	},
 					{id:2, code:'link', 		name:'Ссылка', 				value:nvl(prj.link,''),				type:'INPUT', 			nullable:true, 				editable:nvl(prj.id)!=0, column_size:256, 	sort_seq:2,  	},
-					{id:2, code:'description', 	name:'Описание', 			value:nvl(prj.description,''),		type:'TEXT', 			nullable:nvl(prj.id)==0, 	editable:nvl(prj.id)!=0, column_size:256, 	sort_seq:2, 	}
+					{id:2, code:'description', 	name:'Описание', 			value:nvl(prj.description,''),		type:'TEXT', 			nullable:nvl(prj.id)==0, 	editable:nvl(prj.id)!=0, column_size:256, 	sort_seq:3, 	}
 				]
 			},
 			addPrj(){
 				let vm=this
-				vm.prj.data.push({id:vm.prjCnt, name:null, link:null, code:null})
-				vm.paramInit( {num: vm.paramForm+vm.prjCnt })
+				vm.prj.data.push({id:vm.prjCnt*-1, name:null, link:null, code:null})
+				vm.paramInit( {num: vm.paramForm+(vm.prjCnt*-1) })
 				vm.prjCnt++
 			},
 			delPrj(idx){

@@ -28,7 +28,7 @@
 								</v-flex>
 								<v-flex>
 									<component v-if="type=='RANGE'"  :is="currentInput" v-model="valueArrPairs[0]" :rules="rules" :disabled="getDisable" :readonly="!editable"  :required="!!nullable" ref="input"
-											:multi-line="columnSize>50"  :tabindex="sortSeq" :type="getComponentType" :color="checkBoxColor"
+											:multi-line="isMultiLine"  :tabindex="sortSeq" :type="getComponentType" :color="checkBoxColor"
 											:always-dirty="isSliderLike" :persistent-hint="isSliderLike" :thumb-label="thumbLabelNeed" :ticks="ticksNeed?'always':''" :tickSize="tickSize" :thumb-size="thumbSize" :tick-labels="tickLabels"
 											:append-icon="getAppendIcon" :clearable="getClearable" :mask="mask"   :min="min" :max="max" :step="step" 
 											@change="setNewVal" @keyup.enter="submit"  @blur="onBlur"   >
@@ -41,7 +41,7 @@
 									</component>
 
 									<component v-else :is="currentInput" v-model="value" :rules="rules" :disabled="getDisable" :readonly="!editable"  :required="!!nullable" ref="input"
-											:multi-line="columnSize>50" :tabindex="sortSeq" :type="getComponentType"  :color="checkBoxColor"
+											:multi-line="isMultiLine" :tabindex="sortSeq" :type="getComponentType"  :color="checkBoxColor"
 											:always-dirty="isSliderLike" :persistent-hint="isSliderLike" :thumb-label="thumbLabelNeed" :ticks="ticksNeed?'always':''" :tickSize="tickSize" :thumb-size="thumbSize" :tick-labels="tickLabels"
 											:append-icon="getAppendIcon" :clearable="getClearable" :mask="mask"  :min="min" :max="max" :step="step" 
 											@change="setNewVal" @keyup.enter="submit"  @blur="onBlur"  >
@@ -60,13 +60,13 @@
 							</template>
 							<template v-else>
 								<component v-if="!multy && !isDateTimeLike && !isNeedTab" :is="currentInput" v-model="value" :label="name" :hint="placeholder" :rules="rules" :disabled="getDisable" :readonly="!editable"  :required="!!nullable" ref="input"
-									:multi-line="columnSize>50" :tabindex="sortSeq" :type="getComponentType" :items="getListItems" dense :counter="getCounter"
+									:multi-line="isMultiLine" :tabindex="sortSeq" :type="getComponentType" :items="getListItems" dense :counter="getCounter"
 									:error="inputErrorState"  :error-messages="inputErrorText"
 									:append-icon="getAppendIcon" :clearable="getClearable" :mask="mask"  :min="min" :max="max" :step="step" auto-grow rows="1"
 									@change="setNewVal" @keyup.enter="submit"  @blur="onBlur" @click:append="changeShow" 
 									:class="getComponentClass" />
 								<component v-else-if="multy && type=='LIST'" :is="currentInput" v-model="valueArr" :label="name" :hint="placeholder" :rules="rules" :disabled="getDisable" :readonly="!editable"  :required="!!nullable" ref="input"
-									:multi-line="columnSize>50" :tabindex="sortSeq" :type="getComponentType" :items="getListItems" dense
+									:multi-line="isMultiLine" :tabindex="sortSeq" :type="getComponentType" :items="getListItems" dense
 									:append-icon="getAppendIcon" :clearable="getClearable" :mask="mask"  :min="min" :max="max" :step="step"
 									@change="setNewVal" @keyup.enter="submit"  @blur="onBlur" @click:append="changeShow" multiple chips deletable-chips small-chips
 									:class="getComponentClass" />
@@ -197,6 +197,7 @@ time-with-seconds	##:##:##
 			isBirthDate:false,
 			isDateTimeLike:false,
 			isMounted:false,
+			isMultiLine:false,
 			isNeed:false,
 			isNeedTab:false,			
 			isNumeric:true,
@@ -698,6 +699,7 @@ time-with-seconds	##:##:##
 			vm.thumbLabelNeed=vm.data.thumb_label_need||vm.thumbLabelNeed
 			vm.isBirthDate=vm.data.isBirthDate||vm.isBirthDate
 			
+			vm.isMultiLine = vm.columnSize>50
 			if(vm.data.table_values!=undefined && vm.data.table_values.length>0)
 				vm.data.table_values.forEach(element => {
 					let text = nvl(element.text,element.value)
@@ -732,6 +734,7 @@ time-with-seconds	##:##:##
 				vm.type=='DATE'?'v-date-picker':
 				vm.type=='TIME'?'v-time-picker':
 				vm.type=='TEXT'?'v-textarea':
+				vm.type=='INPUT' && vm.isMultiLine?'v-textarea':
 				'v-text-field'	
 			
 			if(vm.type=='LIST' && !vm.multy  && vm.valueArr.length>0)
