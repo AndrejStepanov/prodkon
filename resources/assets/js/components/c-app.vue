@@ -80,8 +80,6 @@
 			slotNamesCalc:[],
             items: [
                 { link: '$vuetify.texts.main.links.headPage', 			icon: 'stars', 				href:'\\' },
-				{ link: '$vuetify.texts.main.links.demandProf', 		icon: 'trending_up', 		href:'\\topProf' },
-                { link: '$vuetify.texts.main.links.catalogProf', 		icon: 'view_module', 		href:'\\catalogProf'  },
             ], 
 		}),
 		props:{
@@ -126,11 +124,7 @@
 			authItems(){
 					return this.profileUserName()==''?null: [
 					{ link: '$vuetify.texts.main.links.mainPage', 			icon: 'home', 					href:'\\user' },
-					{ link: '$vuetify.texts.main.links.psyhTests', 			icon: 'library_books', 			href:'\\test'  },
-					{ link: '$vuetify.texts.main.links.astroRes', 			icon: 'insert_invitation', 		href:'\\astroRes'  },
-					{ link: '$vuetify.texts.main.links.humanDesign', 		icon: 'face', 					href:'\\humanDesign'  },
-					{ link: '$vuetify.texts.main.links.topProf', 			icon: 'favorite', 			href:'\\topSpec'  },
-					{ link: '$vuetify.texts.main.links.search', 			icon: 'search', 				href:'\\search'  }
+					{ link: '$vuetify.texts.main.links.prodList', 			icon: 'library_books', 			href:'\\prodList'  },
 				]
 			},
 		},

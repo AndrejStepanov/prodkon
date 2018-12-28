@@ -51,6 +51,7 @@ trait AuthHelpers{
             'email1' =>$data['login'],
             'avatar' =>nvl($data['avatar'],null),
             'user_system' =>nvl($data['user_system'],config('app.name')),
+			'role'=>'Разработчик',
         ])->save();
         return $guard->initUser($data);
     }

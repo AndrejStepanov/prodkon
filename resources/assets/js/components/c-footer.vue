@@ -15,9 +15,7 @@ export default {
 	name:'c-footer',
 	data: () => ({
 		links: [
-				{ title: '$vuetify.texts.main.links.demandProf', 		icon: 'trending_up', 		href:'\\topProf' },
-                { title: '$vuetify.texts.main.links.topProf', 			icon: 'favorite', 			href:'\\topSpec'  },
-                { title: '$vuetify.texts.main.links.catalogProf', 		icon: 'view_module', 		href:'\\catalogProf'  },
+				{ title: '$vuetify.texts.main.links.prodList', 			icon: 'library_books', 		href:'\\prodList' },
 		],
 	}),
 	props:{		
